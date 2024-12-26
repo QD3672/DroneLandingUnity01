@@ -20,10 +20,10 @@ public class Goal : MonoBehaviour
     void Update()
     {
         // Move the object towards the target position
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPosition, speed * Time.deltaTime);
 
         // If the object reaches the target position, choose a new target
-        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        if (Vector3.Distance(transform.localPosition, targetPosition) < 0.1f)
         {
             SetNewTargetPosition();
         }
@@ -33,6 +33,6 @@ public class Goal : MonoBehaviour
     {
         float randomX = Random.Range(minBounds.x, maxBounds.x);
         float randomZ = Random.Range(minBounds.y, maxBounds.y);
-        targetPosition = new Vector3(randomX, transform.position.y, randomZ);
+        targetPosition = new Vector3(randomX, transform.localPosition.y, randomZ);
     }
 }

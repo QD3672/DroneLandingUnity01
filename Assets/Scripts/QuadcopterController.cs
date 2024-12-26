@@ -67,9 +67,9 @@ public class QuadcopterController : Agent
 		throttle += Time.deltaTime * throttleSpeed * updown;
 
 		forwardAmount += Time.deltaTime * vertical * forwardSpeed;
+        
 
-
-		if (!Mathf.Approximately(horizontal,0))
+        if (!Mathf.Approximately(horizontal,0))
 		{
 			velocityContext.DesiredDirection = Quaternion.AngleAxis(Time.deltaTime * horizontal * turnSpeed, Vector3.up) * velocityContext.DesiredDirection;
 		}
@@ -87,7 +87,8 @@ public class QuadcopterController : Agent
 
 		Vector3 localVelocity = inverseDesiredLookRotation * rigidbody.velocity;
 		velocityContext.DesiredWorldVelocity = CalculateWorldDesiredVelocityInternal();
-		foreach (var listener in CalculateWorldDesiredVelocity)
+        
+        foreach (var listener in CalculateWorldDesiredVelocity)
 		{
 			listener.Value.Invoke(velocityContext);
 		}
@@ -96,8 +97,8 @@ public class QuadcopterController : Agent
 
 		float newX = Mathf.Clamp((float)xPid.Update(localDesiredVelocity.x, localVelocity.x, Time.deltaTime), -maxEngineSpeed, maxEngineSpeed);
 		float newZ = Mathf.Clamp((float)sidePid.Update(localDesiredVelocity.z, localVelocity.z, Time.deltaTime), -maxEngineSpeed, maxEngineSpeed);
-
-		float pitchError = GetPitchError();
+        Debug.Log(newX);
+        float pitchError = GetPitchError();
 		float rollError = GetRollError();
 		float yawError = GetYawError();
 
